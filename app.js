@@ -4,10 +4,13 @@ var favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
+const color = require("colors");
+//const lodash = require('lodash');
 const path = require('path');
 const config = require('./config');
 const movieController = require('./controllers/movieController');
 const authController = require('./controllers/authController');
+
 
 const jwt = require('jsonwebtoken');
 // to verify token on the request header
@@ -73,7 +76,10 @@ app.get('/login', authController.login);
 app.post('/login', urlencodedParser, authController.postLogin);
 
 app.get('/member-only', authController.getMemberOnly);
+app.get('/inscription', function(req, res){
+    res.render("inscription");
+});
 
 app.listen(port, () => {
-    console.log(`listening on port ${port}`);
+    console.log(`listening on port localhost:${port}` .blue);
 });

@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>JKLM OKLM</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/basicStyle.css">
-</head>
-<body class="text-center" background="img/freedom.png">
-	<h1>JKLMinno</h1>
-	<div class="container-content">
-		<p>Partagez vos passions et rencontrez ceux qui veulent exactement votre profile.</p>
-		<small>Difficile de vous expliquer à quel point c'est facile.</small>
-
-		<div class="container-btn-access">
-			<button class="col-xs-10 col-xs-offset-1 btn btn-primary btn-linkedin"><strong>In</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span>Connexion Linkedin</span></button>
-
-			<div class="container-btn-ci col-xs-offset-1">
-					<a href="connexion.html"><button class="col-xs-5 btn-connexion btn btn-success col-xs-offset-0 text-right">
-					<i class="fas fa-user-alt"></i>Connexion</button></a>
-
-					<a href="Inscription.html"><button class="col-xs-5 btn-inscription btn btn-success col-xs-offset-1 text-left">
-					<i class="fas fa-user-alt"></i>Inscription</button></a>
-			</div>
+	<html lang="fr">
+	<% include ./partials/head %>
+	<body>
+		<% include ./partials/header %>
+		
+		<div class="central">
+			<h1>Express Movies : le site des cinéphiles</h1>
+			<div>
+				Etes vous plutôt films ou séries ? <br>
+				Peu importe, vous trouverez votre bonheur dans les deux cas !
+			</div>			
 		</div>
-	</div>
-</body>
+
+		<footer>
+			<% include ./partials/footer %>
+		</footer>
+	</body>
 </html>

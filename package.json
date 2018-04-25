@@ -22,6 +22,10 @@
     "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
-    "faker": "^4.1.0"
+    "color": "^3.0.0",
+    "colored-console-log": "^1.0.3",
+    "colors": "^1.2.1",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.10"
   }
 }
