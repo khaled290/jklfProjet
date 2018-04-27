@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const secret = 'qsdjS12ozehdoIJ123DJOZJLDSCqsdeffdg123ER56SDFZedhWXojqshduzaohduihqsDAqsdq';
 
 exports.login = (req, res) => {
-    res.render('login', { title: 'Espace membre'});
+    res.render('login', { title: 'Login / Inscription'});
 };
 
 const fakeUser = { email: 'testuser@testmail.fr', password: 'qsd' };
@@ -24,7 +24,8 @@ exports.postLogin = (req, res) => {
 };
 
 exports.getMemberOnly = (req, res) => {
-    console.log('req.user', req.user);
+    console.log('req.user', req.user); // contient tout les element (parametre) de notre token
+    // on s'assure q'uil a bien les droit moderateur dans le token
     if(req.user.role === 'moderator') {
         res.send(req.user);
     };
