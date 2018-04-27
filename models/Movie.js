@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const movieSchema = mongoose.Schema({
     user: String,
     name: String,
     lastName: String,
@@ -9,4 +9,4 @@ const userSchema = mongoose.Schema({
     skills : []
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Movie', movieSchema);

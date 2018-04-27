@@ -1,0 +1,12 @@
+<% include ./partials/head %>  
+
+<% include ./partials/header %>  
+<h1><%= title %></h1>
+						
+<div class="french-movies">
+    <% for(user of users) { %>
+        <div><a href="/user-details/<%= user._id %>"><%= user.name %> (<%= user.lastName %>)</a></div>
+    <% } %>
+</div>
+
+<% include ./partials/footer %>  

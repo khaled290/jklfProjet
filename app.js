@@ -6,16 +6,13 @@ const multer = require('multer');
 const upload = multer();
 const color = require("colors");
 const lodash = require('lodash');
-const Localstorage = require("node-localstorage").localStorage;
 const path = require('path');
 const config = require('./config');
+
 const movieController = require('./controllers/movieController');
 const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
 
-
-const jwt = require('jsonwebtoken');
-// to verify token on the request header
-const expressJwt = require('express-jwt'); 
 
 const faker = require('faker');
 faker.locale = "fr";
@@ -38,17 +35,6 @@ app.set('view engine', 'ejs');
 
 // to service static files from the public folder
 app.use('/public', express.static('public'));
-
-const secret = 'qsdjS12ozehdoIJ123DJOZJLDSCqsdeffdg123ER56SDFZedhWXojqshduzaohduihqsDAqsdq';
-
-
-// check token on all pages except the ones mentioned in unless()
-app.use(expressJwt({ secret: secret})
-      .unless({ path: ["/public", '/', '/movies', new RegExp('/movies.*/', 'i'), '/movie-search', '/login', new RegExp('/movie-details.*/', 'i')]}))
-     
-    //'/', '/movies', new RegExp('/movies.*/', 'i'), '/movie-search', '/login', new RegExp('/movie-details.*/', 'i')
-
-
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -79,13 +65,12 @@ app.get('/movie-search', movieController.movieSearch);
 
 app.get('/login', authController.login);
 
-app.post('/login', urlencodedParser, authController.postLogin);
+app.post('/login/inscription', urlencodedParser, userController.postUser);
+
+app.get('/all-users', userController.getUsers);
+app.get('/user-details/:id', userController.getUserDetails);
 
 app.get('/member-only', authController.getMemberOnly);
-
-app.get('/inscription', function(req, res){
-    res.render("inscription");
-});
 
 app.listen(port, () => {
     console.log(`listening on port localhost:${port}` .blue);

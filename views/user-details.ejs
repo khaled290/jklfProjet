@@ -1,0 +1,17 @@
+<% include ./partials/head %>  
+
+<% include ./partials/header %>  
+<h1><%= title %></h1>
+						
+<div class="french-movies">
+
+        <div>
+            <p>ID : <%= user._id %></p>
+            <p>PRENOM : <%= user.name %></p> 
+            <p>NOM : <%= user.lastName %></p>
+            <p>EMAIL : <%= user.email %></p>
+            <p>PWD : <%= user.pwd %></p>
+        </div>
+</div>
+
+<% include ./partials/footer %>  

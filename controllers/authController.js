@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const secret = 'qsdjS12ozehdoIJ123DJOZJLDSCqsdeffdg123ER56SDFZedhWXojqshduzaohduihqsDAqsdq';
+//const jwt = require('jsonwebtoken');
+//const secret = 'qsdjS12ozehdoIJ123DJOZJLDSCqsdeffdg123ER56SDFZedhWXojqshduzaohduihqsDAqsdq';
 
 exports.login = (req, res) => {
     res.render('login', { title: 'Login / Inscription'});
@@ -14,7 +14,7 @@ exports.postLogin = (req, res) => {
     } else {        
         if(fakeUser.email === req.body.email && fakeUser.password === req.body.password) {
             // iss means 'issuer'
-            const myToken = jwt.sign({iss: 'http://expressmovies.fr', user: 'Sam', role: 'moderator'}, secret);
+          //  const myToken = jwt.sign({iss: 'http://expressmovies.fr', user: 'Sam', role: 'moderator'}, secret);
             console.log('myToken', myToken);
             res.json(myToken);
         } else {

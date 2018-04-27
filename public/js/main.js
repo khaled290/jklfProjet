@@ -6,10 +6,8 @@
         var self = {};
         var form = document.querySelector('#formLogin');
         
-        var tokenFromStorage = localStorage.getItem('token');
         var disconnectBtn = document.querySelector('#deconnectionLink');
-        var page = "index"; //"member-only";
-        var config = {};
+    
 
         self.formSubmit = function(){
             form.addEventListener("submit", function (event) {				
@@ -59,11 +57,10 @@
         }
 
         self.deconnect = function(){
-            if(document.querySelector('nav')){
-                disconnectBtn.addEventListener('click', function() {
+            
                     localStorage.removeItem('token');
-                });
-            }
+           
+           
             
         }
 
@@ -95,10 +92,10 @@
         return self;
     })();
 
-    ModuleSubmitFormLogin.formSubmit();
-    ModuleSubmitFormLogin.getTokenStorage();
+    //ModuleSubmitFormLogin.formSubmit();
+   // ModuleSubmitFormLogin.getTokenStorage();
     ModuleSubmitFormLogin.deconnect();
-    ModuleSubmitFormLogin.memberOnly();	
+    //ModuleSubmitFormLogin.memberOnly();	
 
             
 /****
@@ -110,6 +107,8 @@ var ModuleInscription = (function(){
     var radioOui = document.getElementById('radioOui');
     var radioNon = document.getElementById('radioNon');
     var btnSubmit = document.getElementById('subInscription');
+    var tokenFromStorage = localStorage.getItem('token');
+    var form = document.getElementById('formInscription');
 
     function entrepriseOK() {
         radioOui.addEventListener('click', function(){
@@ -135,6 +134,39 @@ var ModuleInscription = (function(){
         }
     }
 
+    self.formSubmit = function(){
+        form.addEventListener("submit", function (event) {				
+            // crée une verification des champs du formulaire	
+            event.preventDefault();
+            console.log('Inscription XHR');		
+            var name = document.getElementById('prenom').value;
+            var lastName = document.getElementById('nom').value;
+            var email = document.getElementById('emailInscription').value;
+            var pwd = document.getElementById('pwd').value;
+       
+            var payLoad = "name=" + name + "&" + "lastName=" + lastName + "&" + "email=" + email + "&" + "pwd=" + pwd; 
+            // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
+            console.log('------------------------------------');
+            console.log(payLoad);
+            console.log('------------------------------------');
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/login/inscription', true);
+
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {//Call a function when the state changes.
+                if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    console.log('------------------------------------');
+                    console.log(xhr.response);
+                    console.log('------------------------------------'); xhr.response;
+                    form.reset();
+                }
+            }				
+            
+            xhr.send(payLoad); 				
+       
+        });
+    }
 
     self.init = function(){
         entrepriseOK();
@@ -143,5 +175,7 @@ var ModuleInscription = (function(){
 
     return self;
 })();
-
-ModuleInscription.init();
+if(document.getElementById('formInscription')){
+    ModuleInscription.init();
+    ModuleInscription.formSubmit();
+}
