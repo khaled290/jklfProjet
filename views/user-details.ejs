@@ -12,6 +12,9 @@
             <p>EMAIL : <%= user.email %></p>
             <p>PWD : <%= user.pwd %></p>
         </div>
+        <div>
+            <p><a href="/user-delete/<%= user._id %>">Delete User</a></p>
+        </div>
 </div>
 
 <% include ./partials/footer %>  

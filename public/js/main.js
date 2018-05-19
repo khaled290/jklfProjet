@@ -1,7 +1,7 @@
 /****
  *  LOGIN
  ****/
-
+//console.log(document.session['user'].value);
     var ModuleSubmitFormLogin = (function(){
         var self = {};
         var form = document.querySelector('#formLogin');
@@ -16,21 +16,25 @@
                 console.log('loginUserWithXHR');		
                 var email = document.getElementById('email').value;
                 var password = document.getElementById('password').value;
-                var payLoad = "email=" + email + "&" + "password=" + password; 
+                var payLoad = "email=" + email + "&" + "pwd=" + password; 
                 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", '/login', true);
+                xhr.open("POST", '/login/login', true);
 
                 //Send the proper header information along with the request
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                 xhr.onreadystatechange = function() {//Call a function when the state changes.
                     if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                        // add token to localStorage
-                        var token = xhr.response;
-                        localStorage.setItem('token', token);
+                        console.log('------------------------------------');
+                        console.log(xhr.response);
+                        console.log('------------------------------------'); xhr.response;
                         form.reset();
-                        window.location.replace("/");
+                    }else if(xhr.readyState == XMLHttpRequest.DONE){
+                        console.log('------------------------------------');
+                        var a = JSON.parse(xhr.response);
+                        console.log(a.error);
+                        console.log('------------------------------------');
                     }
                 }				
                 
@@ -94,7 +98,7 @@
 
     //ModuleSubmitFormLogin.formSubmit();
    // ModuleSubmitFormLogin.getTokenStorage();
-    ModuleSubmitFormLogin.deconnect();
+    ModuleSubmitFormLogin.formSubmit();
     //ModuleSubmitFormLogin.memberOnly();	
 
             
@@ -160,6 +164,11 @@ var ModuleInscription = (function(){
                     console.log(xhr.response);
                     console.log('------------------------------------'); xhr.response;
                     form.reset();
+                }else if(xhr.readyState == XMLHttpRequest.DONE){
+                    console.log('------------------------------------');
+                    var a = JSON.parse(xhr.response);
+                    console.log(a.error);
+                    console.log('------------------------------------');
                 }
             }				
             
