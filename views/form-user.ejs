@@ -1,0 +1,62 @@
+<div class="col-md-4 col-md-offset-1">
+    <div class="container-content-inscription">
+            <form id="<% if(formid) { %> <%=formid%> <% } %>" data-id="<%= user._id %>">
+                <% if(status !== "user") { %>}
+                <div class="askEntreprise">
+                        <p>Vous êtes une entreprise ?&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="ouiEntreprise" value="oui" id="radioOui" >
+                            <label for="radioOui">Oui</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="nonEntreprise" value="non" id="radioNon" checked="checked" >
+                            <label for="radioNon">Non</label>
+                        </p>
+                    </div>
+                    <div id="container-entreprise">
+                        <div class="form-group">
+                            <label for="NomEntreprise">Nom de l'entreprise</label>
+                            <input type="password" class="form-control" id="NomEntreprise" placeholder="Le nom de votre entreprise">
+                        </div>
+                        <div class="form-group">
+                            <label for="siretNumber">Numéro de Siret</label>
+                            <input type="password" class="form-control" id="siretNumber" placeholder="Numéro de siret">
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text"  value="<%= user.name %>"  class="form-control" id="prenom" aria-describedby="emailHelp" placeholder="Votre prénom">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" value="<%= user.lastName %>" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                        <% if (locals.error) { %>
+                            <div class="alert alert-danger">
+                                <strong>Attention !</strong> <%= locals.error %>
+                            </div>
+                        <% } %>
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" class="form-control" id="emailInscription" value="<%= user.email %>" aria-describedby="emailHelp" placeholder="Votre email">
+                </div>
+            <% if(!formUpdate) { %>}
+                <div class="form-group">
+                    <label for="pwd">Mot de passe</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Mot de passe">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPwd">Confirmation mot de passe</label>
+                    <input type="password" class="form-control" id="confirmPwd" placeholder="Confirmez le mot de passe">
+                </div>
+            <% } %>
+            <% if(formUpdate) { %>
+                <div class="form-group">
+                    <a href="">Changer mot de passe</a>
+                </div>
+            <% } %>
+                <input type="hidden" name="robotInscription">
+                <button type="submit" id="subInscription" name="user" class="btn btn-block btn-success">Inscription</button>
+            </form>
+        </div>
+</div>

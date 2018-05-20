@@ -14,7 +14,15 @@
         </div>
         <div>
             <p><a href="/user-delete/<%= user._id %>">Delete User</a></p>
+            <% if (!formUpdate) { %>
+            <p><a href="/user-update/<%= user._id %>">Update User</a></p>
+            <% } %>
         </div>
 </div>
-
+<% if (formUpdate) { %>
+    <div class="row">
+        <% include ./form-user %>
+    </div>
+   
+  <% } %>
 <% include ./partials/footer %>  

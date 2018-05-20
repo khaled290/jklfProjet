@@ -25,11 +25,12 @@
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                 xhr.onreadystatechange = function() {//Call a function when the state changes.
-                    if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    if(xhr.readyState == XMLHttpRequest.DONE) {
                         console.log('------------------------------------');
                         console.log(xhr.response);
                         console.log('------------------------------------'); xhr.response;
                         form.reset();
+                       // document.location.href = "/all-users";
                     }else if(xhr.readyState == XMLHttpRequest.DONE){
                         console.log('------------------------------------');
                         var a = JSON.parse(xhr.response);
@@ -98,7 +99,10 @@
 
     //ModuleSubmitFormLogin.formSubmit();
    // ModuleSubmitFormLogin.getTokenStorage();
-    ModuleSubmitFormLogin.formSubmit();
+   if (document.querySelector('#formLogin')){
+    ModuleSubmitFormLogin.formSubmit();   
+   }
+   // ModuleSubmitFormLogin.formSubmit();
     //ModuleSubmitFormLogin.memberOnly();	
 
             
@@ -112,7 +116,7 @@ var ModuleInscription = (function(){
     var radioNon = document.getElementById('radioNon');
     var btnSubmit = document.getElementById('subInscription');
     var tokenFromStorage = localStorage.getItem('token');
-    var form = document.getElementById('formInscription');
+    var form = document.getElementById(' formUpdate ') || document.getElementById('formInscription');
 
     function entrepriseOK() {
         radioOui.addEventListener('click', function(){
@@ -137,7 +141,13 @@ var ModuleInscription = (function(){
             noChecked.checked = false;
         }
     }
-
+    function isFormUpdate(){
+        if(document.getElementById(' formUpdate ')){
+           return true;
+        }else{
+            return false;
+        }
+    }
     self.formSubmit = function(){
         form.addEventListener("submit", function (event) {				
             // crée une verification des champs du formulaire	
@@ -146,24 +156,37 @@ var ModuleInscription = (function(){
             var name = document.getElementById('prenom').value;
             var lastName = document.getElementById('nom').value;
             var email = document.getElementById('emailInscription').value;
-            var pwd = document.getElementById('pwd').value;
-       
-            var payLoad = "name=" + name + "&" + "lastName=" + lastName + "&" + "email=" + email + "&" + "pwd=" + pwd; 
+            if(isFormUpdate()){
+                var payLoad = "name=" + name + "&" + "lastName=" + lastName + "&" + "email=" + email;
+            }else{
+                var pwd = document.getElementById('pwd').value;       
+                var payLoad = "name=" + name + "&" + "lastName=" + lastName + "&" + "email=" + email + "&" + "pwd=" + pwd;
+            }
+             
             // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
             console.log('------------------------------------');
             console.log(payLoad);
             console.log('------------------------------------');
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", '/login/inscription', true);
+            var path = '/login/inscription';
+            if(isFormUpdate()){
+                var id = this.getAttribute("data-id");
+                path = '/user-update/' + id
+            }
+            console.log(path);
+            xhr.open("POST", path, true);
 
             //Send the proper header information along with the request
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {//Call a function when the state changes.
-                if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                if(xhr.readyState == XMLHttpRequest.DONE ) {
                     console.log('------------------------------------');
                     console.log(xhr.response);
                     console.log('------------------------------------'); xhr.response;
                     form.reset();
+                    if(isFormUpdate()){
+                        document.location.href = "/user-details/"+ id;
+                    }
                 }else if(xhr.readyState == XMLHttpRequest.DONE){
                     console.log('------------------------------------');
                     var a = JSON.parse(xhr.response);
@@ -178,13 +201,19 @@ var ModuleInscription = (function(){
     }
 
     self.init = function(){
-        entrepriseOK();
+        if(contentEntreprise){
+            entrepriseOK();
         entrepriseNon();
+        }
     }
 
     return self;
 })();
-if(document.getElementById('formInscription')){
+if(document.getElementById(' formUpdate ') || document.getElementById('formInscription')){
+    console.log("ok");
     ModuleInscription.init();
     ModuleInscription.formSubmit();
 }
+console.log('------------------------------------');
+console.log(document.getElementById(' formUpdate ') );
+console.log('------------------------------------');

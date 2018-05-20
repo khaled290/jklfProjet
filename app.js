@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 var favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
-const expressSession = require('express-session');
+const session = require('express-session');
 const multer = require('multer');
 const upload = multer();
 const color = require("colors");
@@ -34,7 +34,7 @@ app.set('view engine', 'ejs');
 
 // to service static files from the public folder
 app.use('/public', express.static('public'));
-app.use(expressSession({ secret: 'jklf', resave: false, saveUninitialized: true, }));
+app.use(session({ secret: 'jklf', resave: false, saveUninitialized: true, }));
 
 const movieController = require('./controllers/movieController');
 const authController = require('./controllers/authController');
@@ -68,12 +68,14 @@ app.delete('/movie-details/:id', movieController.deleteMovie)
 app.get('/movie-search', movieController.movieSearch);
 
 app.get('/login', authController.login);
-app.post('/login/login',  urlencodedParser, userController.formsLogin, userController.postLoginAuth);
+app.post('/login/login',  urlencodedParser, userController.postLoginAuth);
 app.post('/login/inscription', urlencodedParser, userController.forms, userController.postUser);
 
 app.get('/all-users', userController.getUsers);
 app.get('/user-details/:id', userController.getUserDetails);
 app.get('/user-delete/:id', userController.userDelete);
+app.get('/user-update/:id', userController.getUserUpdate);
+app.post('/user-update/:id', urlencodedParser, userController.userUpdate);
 
 app.get('/member-only', authController.getMemberOnly);
 
